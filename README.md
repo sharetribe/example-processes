@@ -35,10 +35,10 @@ Let's use `my-marketplace-id` as an example Marketplace ID and
 `sca-preauth-daily-booking` as the default process that is taken into
 use.
 
-Push one of the processes to your marketplace:
+Using the defaults, create a new process to your marketplace:
 
 ```
-flex-cli process push -m my-marketplace-id --process sca-preauth-daily-booking --path sca-preauth-daily-booking
+flex-cli process create -m my-marketplace-id --process sca-preauth-daily-booking --path sca-preauth-daily-booking
 ```
 
 Create an alias to the process:

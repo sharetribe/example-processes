@@ -1,0 +1,1 @@
+{{transaction.customer.display-name}} didn't pay for the booking on time

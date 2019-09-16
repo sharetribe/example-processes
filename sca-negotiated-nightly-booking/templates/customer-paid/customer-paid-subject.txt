@@ -1,0 +1,1 @@
+{{transaction.customer.display-name}} paid the booking of {{transaction.listing.title}}

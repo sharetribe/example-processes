@@ -1,0 +1,5 @@
+
+{{~#*inline "format-money"~}}
+{{~money-amount money}} {{money.currency~}}
+{{~/inline~}}
+{{~transaction.customer.display-name}} has requested to book {{transaction.listing.title}} for {{> format-money money=transaction.payin-total}}

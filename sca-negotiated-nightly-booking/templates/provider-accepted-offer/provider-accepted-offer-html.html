@@ -1,0 +1,68 @@
+
+{{~#*inline "format-money"~}}
+{{money-amount money}} {{money.currency}}
+{{~/inline~}}
+
+{{~#*inline "format-date"~}}
+{{date date format="MMM d, YYYY"}}
+{{~/inline~}}
+
+<html>
+  <body>
+    <h1>Your offer was accepted!</h1>
+
+    {{#with transaction}}
+    <p>{{provider.display-name}} has accepted your booking request for {{listing.title}} from {{> format-date date=booking.start}} to {{> format-date date=booking.end}} for {{> format-money money=payin-total}}.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left;">Payment</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each tx-line-items}}
+        {{#contains include-for "customer"}}
+          <tr>
+            {{#eq "line-item/day" code}}
+            <td>{{> format-money money=unit-price}} &times; {{number quantity}} {{inflect quantity "day" "days"}}</td>
+            <td style="text-align: right; padding-left: 20px">{{> format-money money=line-total}}</td>
+            {{/eq}}
+
+            {{#eq "line-item/night" code}}
+            <td>{{> format-money money=unit-price}} &times; {{number quantity}} {{inflect quantity "night" "nights"}}</td>
+            <td style="text-align: right; padding-left: 20px">{{> format-money money=line-total}}</td>
+            {{/eq}}
+
+            {{#eq "line-item/negotiation" code}}
+            <td>Negotiation:</td>
+            <td style="text-align: right; padding-left: 20px">{{> format-money money=line-total}}</td>
+            {{/eq}}
+
+            {{#eq "line-item/customer-commission" code}}
+            <td>{{marketplace.name}} fee:</td>
+            <td style="text-align: right; padding-left: 20px;">{{> format-money money=line-total}}</td>
+            {{/eq}}
+          </tr>
+        {{/contains}}
+      {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th style="text-align: left;">Payment total</th>
+          <th style="text-align: right; padding-left: 20px;">{{> format-money money=payin-total}}</th>
+        </tr>
+      </tfoot>
+    </table>
+
+    <p>You need to pay the booking by {{> format-date date=delayed-transition.run-at}} to confirm it or otherwise the request will expire.</p>
+
+    <p><a href="{{marketplace.url}}/sale/{{url-encode id}}/details">Pay the booking</a></p>
+
+    {{/with}}
+
+    <hr />
+
+    <p>You have received this email notification because you are a member of {{marketplace.name}}. If you no longer wish to receive these emails, please contact {{marketplace.name}} team.</p>
+  </body>
+</html>

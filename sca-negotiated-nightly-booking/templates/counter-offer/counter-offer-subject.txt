@@ -1,0 +1,6 @@
+
+{{~#*inline "format-money"~}}
+{{~money-amount money}} {{money.currency~}}
+{{~/inline~}}
+
+{{other-party.display-name}} made a counter offer for {{transaction.listing.title}} for {{> format-money money=transaction.payin-total}}

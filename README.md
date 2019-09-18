@@ -69,22 +69,90 @@ in Flex Docs.
 
 ## Processes
 
-### negotiated-nightly-booking:
+The default processes are meant to showcase some of the capabilities
+of the transaction engine. See the differences in the `process.edn`
+files in each process directory to see how they differ only slightly.
 
-![negotiated-nightly-booking](./negotiated-nightly-booking.png)
+All the processes support [Strong Customer Authentication
+(SCA)](https://www.sharetribe.com/docs/background/strong-customer-authentication/).
 
-### preauth-daily-booking:
-
-![preauth-daily-booking](./preauth-daily-booking.png)
+The default processes differ mostly in availability management and
+pricing. To understand these concepts, see the [Listing availability
+management](https://www.sharetribe.com/docs/references/availability/)
+and [Custom
+pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
+articles in Flex Docs.
 
 ### preauth-nightly-booking:
 
+This is the default process that is created in our backend for new
+test marketplaces and what [Flex Template for Web
+(FTW)](https://github.com/sharetribe/flex-template-web) expects as the
+default.
+
+In this process listings are booked for full nights.
+
 ![preauth-nightly-booking](./preauth-nightly-booking.png)
 
+### preauth-daily-booking:
+
+This is very similar to the `preauth-nightly-booking` process, but
+bookings are made for full days, not nights.
+
+If you use daily bookings, make sure to change the `bookingUnitType`
+in the [FTW
+config](https://github.com/sharetribe/flex-template-web/blob/master/src/config.js)
+accordingly.
+
+![preauth-daily-booking](./preauth-daily-booking.png)
+
 ### preauth-unit-booking:
+
+This process calculates the total price by units, not the booking
+times. The total price is calculated by multiplying the listing price
+by the `quantity` sent in the transition request.
+
+Note: this process doesn't have availability management enabled since
+the `:action/create-booking` action doesn't set the
+`:observe-availability?` config option.
+
+If you use unit bookings, make sure to change the `bookingUnitType` in
+the [FTW
+config](https://github.com/sharetribe/flex-template-web/blob/master/src/config.js)
+accordingly.
 
 ![preauth-unit-booking](./preauth-unit-booking.png)
 
 ### preauth-unit-time-booking:
 
+This process is similar to the `preauth-unit-booking` process, but has
+the time-based availability management enabled. The transaction prices
+are calculated based on units.
+
+With daily and nightly bookings, the time component of booking start
+and end is normalized to UTC midnight. With the time-based
+availability in this process, also the time component of the bookings
+dates is relevant.
+
+Note that currently FTW doesn't support time-based availability
+management, but we are working on a version that has all the relevant
+UI components in place for time-based bookings and availability
+management.
+
 ![preauth-unit-time-booking](./preauth-unit-time-booking.png)
+
+### negotiated-nightly-booking:
+
+This process differs clearly from the other processes as seen in the
+visualization below. It uses price negotiation where the customer and
+provider can negotiate a new total price for the transaction.
+
+The transitions for the negotiation showcase an example how to handle
+the negotiation in an offering phase before moving onto the payment.
+
+Note that price negotiation is just one way to customize the
+pricing. There is also the powerful [Custom
+pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
+that enables lots of use cases for transaction pricing.
+
+![negotiated-nightly-booking](./negotiated-nightly-booking.png)

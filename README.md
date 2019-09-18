@@ -32,25 +32,25 @@ cd flex-default-processes
 ```
 
 Let's use `my-marketplace-id` as an example Marketplace ID and
-`sca-preauth-daily-booking` as the default process that is taken into
+`preauth-daily-booking` as the default process that is taken into
 use.
 
 Using the defaults, create a new process to your marketplace:
 
 ```
-flex-cli process create -m my-marketplace-id --process sca-preauth-daily-booking --path sca-preauth-daily-booking
+flex-cli process create -m my-marketplace-id --process preauth-daily-booking --path preauth-daily-booking
 ```
 
 Create an alias to the process:
 
 ```
-flex-cli process create-alias -m my-marketplace-id --process sca-preauth-daily-booking --version 1 --alias release-1
+flex-cli process create-alias -m my-marketplace-id --process preauth-daily-booking --version 1 --alias release-1
 ```
 
 Check that everything is good:
 
 ```
-flex-cli process list -m my-marketplace-id --process sca-preauth-daily-booking
+flex-cli process list -m my-marketplace-id --process preauth-daily-booking
 ```
 
 Then set up your FTW customization to use that process alias and
@@ -69,22 +69,22 @@ in Flex Docs.
 
 ## Processes
 
-### sca-negotiated-nightly-booking:
+### negotiated-nightly-booking:
 
-![sca-negotiated-nightly-booking](./sca-negotiated-nightly-booking.png)
+![negotiated-nightly-booking](./negotiated-nightly-booking.png)
 
-### sca-preauth-daily-booking:
+### preauth-daily-booking:
 
-![sca-preauth-daily-booking](./sca-preauth-daily-booking.png)
+![preauth-daily-booking](./preauth-daily-booking.png)
 
-### sca-preauth-nightly-booking:
+### preauth-nightly-booking:
 
-![sca-preauth-nightly-booking](./sca-preauth-nightly-booking.png)
+![preauth-nightly-booking](./preauth-nightly-booking.png)
 
-### sca-preauth-unit-booking:
+### preauth-unit-booking:
 
-![sca-preauth-unit-booking](./sca-preauth-unit-booking.png)
+![preauth-unit-booking](./preauth-unit-booking.png)
 
-### sca-preauth-unit-time-booking:
+### preauth-unit-time-booking:
 
-![sca-preauth-unit-time-booking](./sca-preauth-unit-time-booking.png)
+![preauth-unit-time-booking](./preauth-unit-time-booking.png)

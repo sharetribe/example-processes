@@ -1,0 +1,17 @@
+{
+  "name": "sharetribe-flex-default-processes",
+  "description": "Default transaction processes for Sharetribe Flex. This package.json setup is here purely for the CI setup.",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharetribe/flex-default-processes"
+  },
+  "scripts": {
+    "test-ci": "find . -name process.edn | cut -d / -f 2 | xargs -n1 -t flex-cli process --path > /dev/null"
+  },
+  "dependencies": {
+    "flex-cli": "^0.5.0"
+  }
+}

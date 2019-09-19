@@ -28,6 +28,6 @@ jobs:
           command: yarn run test-ci
 workflows:
   version: 2
-  format_test_build_audit:
+  test:
     jobs:
       - test

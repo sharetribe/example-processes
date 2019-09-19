@@ -203,7 +203,7 @@
    :to :actor.role/provider,
    :template :customer-paid}
   {:name :notification/payment-expired,
-   :on :transition/payment-expire,
+   :on :transition/expire-payment,
    :to :actor.role/provider,
    :template :payment-expired}
   {:name :notification/provider-made-offer,

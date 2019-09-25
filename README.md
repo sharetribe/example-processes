@@ -1,7 +1,7 @@
-# Sharetribe Flex default transaction processes
+# Sharetribe Flex example transaction processes
 
-This repository contains the default transaction processes and the
-email templates for [Sharetribe
+This repository contains example transaction processes and the email
+templates for [Sharetribe
 Flex](https://www.sharetribe.com/flex/). These processes can be used
 as starting points for customizing your marketplace using Flex CLI.
 
@@ -22,20 +22,19 @@ tutorial in Flex Docs.
 Clone this repository:
 
 ```
-git clone git@github.com:sharetribe/flex-default-processes.git
+git clone git@github.com:sharetribe/flex-example-processes.git
 ```
 
 Change to the cloned directory:
 
 ```
-cd flex-default-processes
+cd flex-example-processes
 ```
 
 Let's use `my-marketplace-id` as an example Marketplace ID and
-`preauth-daily-booking` as the default process that is taken into
-use.
+`preauth-daily-booking` as the process that is taken into use.
 
-Using the defaults, create a new process to your marketplace:
+Using the example processes, create a new process to your marketplace:
 
 ```
 flex-cli process create -m my-marketplace-id --process preauth-daily-booking --path preauth-daily-booking
@@ -69,14 +68,14 @@ in Flex Docs.
 
 ## Processes
 
-The default processes are meant to showcase some of the capabilities
+The example processes are meant to showcase some of the capabilities
 of the transaction engine. See the differences in the `process.edn`
 files in each process directory to see how they differ only slightly.
 
 All the processes support [Strong Customer Authentication
 (SCA)](https://www.sharetribe.com/docs/background/strong-customer-authentication/).
 
-The default processes differ mostly in availability management and
+The example processes differ mostly in availability management and
 pricing. To understand these concepts, see the [Listing availability
 management](https://www.sharetribe.com/docs/references/availability/)
 and [Custom

@@ -25,14 +25,14 @@
       <tbody>
       {{#each tx-line-items}}
         {{#contains include-for "customer"}}
-          {{#eq "line-item/day" code}}
+          {{#eq "line-item/units" code}}
               <tr>
-                <td>Price per day</td>
+                <td>Price per unit</td>
                 <td style="text-align: right; padding-left: 20px">{{> format-money money=unit-price}}</td>
               </tr>
               {{#if seats}}
               <tr>
-                <td>Days</td>
+                <td>Units</td>
                 <td style="text-align: right; padding-left: 20px">&times; {{number units}}</td>
               </tr>
               <tr>
@@ -41,32 +41,10 @@
               </tr>
               {{else}}
               <tr>
-                <td>Days</td>
+                <td>Units</td>
                 <td style="text-align: right; padding-left: 20px">&times; {{number quantity}}</td>
               </tr>
               {{/if}}
-          {{/eq}}
-
-          {{#eq "line-item/night" code}}
-            <tr>
-              <td>Price per night</td>
-              <td style="text-align: right; padding-left: 20px">{{> format-money money=unit-price}}</td>
-            </tr>
-            {{#if seats}}
-            <tr>
-              <td>Nights</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number units}}</td>
-            </tr>
-            <tr>
-              <td>Seats</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number seats}}</td>
-            </tr>
-            {{else}}
-            <tr>
-              <td>Nights</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number quantity}}</td>
-            </tr>
-            {{/if}}
           {{/eq}}
         {{/contains}}
       {{/each}}

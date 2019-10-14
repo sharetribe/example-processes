@@ -12,6 +12,31 @@
 {{~/inline~}}
 
 <html>
+  <head>
+    <style type="text/css">
+     table {
+       border-collapse: collapse;
+     }
+     .left {
+       text-align: left;
+     }
+     .right {
+       text-align: right;
+       padding-left: 20px;
+     }
+     .bottom-row > td {
+       padding-bottom: 5px;
+     }
+     .top-row {
+       border-top: 1px solid #CCC;
+     }
+     .top-row > td,
+     .top-row > th
+     {
+       padding-top: 5px;
+     }
+    </style>
+  </head>
   <body>
     {{#with transaction}}
     <h1>You have been paid {{> format-money money=payout-total}}</h1>
@@ -23,51 +48,53 @@
     <table>
       <thead>
         <tr>
-          <th style="text-align: left;">Payment</th>
+          <td class="left">Start date</td>
+          <td class="right">End date</td>
+        </tr>
+        <tr>
+          <th class="left">{{date booking.start format="EEEE"}}</th>
+          <th class="right">{{date-day-before booking.end format="EEEE"}}</th>
+        </tr>
+        <tr class="bottom-row">
+          <th class="left">{{date booking.start format="MMM d"}}</th>
+          <th class="right">{{date-day-before booking.end format="MMM d"}}</th>
         </tr>
       </thead>
       <tbody>
       {{#each tx-line-items}}
         {{#contains include-for "provider"}}
           {{#eq "line-item/day" code}}
-            <tr>
-              <td>Price per day</td>
-              <td style="text-align: right; padding-left: 20px">{{> format-money money=unit-price}}</td>
-            </tr>
             {{#if seats}}
-            <tr>
-              <td>Days</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number units}}</td>
+            <tr class="top-row">
+              <td colspan="2">{{> format-money money=unit-price}} &times; {{number units}} {{inflect units "day" "days"}}</td>
             </tr>
-            <tr>
-              <td>Seats</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number seats}}</td>
+            <tr class="bottom-row">
+              <td colspan="2">Seats &times; {{number seats}}</td>
             </tr>
             {{else}}
-            <tr>
-              <td>Days</td>
-              <td style="text-align: right; padding-left: 20px">&times; {{number quantity}}</td>
+            <tr class="top-row bottom-row">
+              <td colspan="2">{{> format-money money=unit-price}} &times; {{number quantity}} {{inflect quantity "day" "days"}}</td>
             </tr>
             {{/if}}
-            <tr>
-              <th style="text-align: left;">Subtotal</th>
-              <th style="text-align: right; padding-left: 20px">{{> format-money money=line-total}}</th>
+            <tr class="top-row">
+              <th class="left">Subtotal</th>
+              <th class="right">{{> format-money money=line-total}}</th>
             </tr>
           {{/eq}}
 
           {{#eq "line-item/provider-commission" code}}
-            </tr>
-              <td>{{marketplace.name}} fee:</td>
-              <td style="text-align: right; padding-left: 20px;">{{> format-money money=line-total}}</td>
+            <tr class="bottom-row">
+              <td>{{marketplace.name}} fee</td>
+              <td class="right">{{> format-money money=line-total}}</td>
             </tr>
           {{/eq}}
         {{/contains}}
       {{/each}}
       </tbody>
       <tfoot>
-        <tr>
-          <th style="text-align: left;">You earn</th>
-          <th style="text-align: right; padding-left: 20px;">{{> format-money money=payout-total}}</th>
+        <tr class="top-row">
+          <th class="left">You'll make</th>
+          <th class="right">{{> format-money money=payout-total}}</th>
         </tr>
       </tfoot>
     </table>

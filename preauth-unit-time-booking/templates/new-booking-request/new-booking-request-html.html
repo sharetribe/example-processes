@@ -4,7 +4,21 @@
 {{~/inline~}}
 
 {{~#*inline "format-date"~}}
-{{date date format="hh:mm a"}} on {{date date format="MMM d, YYYY"}}
+{{#with transaction.listing.availability-plan}}
+{{date d format="hh:mm a" tz=timezone}} on {{date date format="MMM d, YYYY" tz=timezone}}
+{{/with}}
+{{~/inline~}}
+
+{{~#*inline "format-day-time"~}}
+{{#with transaction.listing.availability-plan}}
+{{date date format="EE hh:mm a" tz=timezone}}
+{{/with}}
+{{~/inline~}}
+
+{{~#*inline "format-month-date"~}}
+{{#with transaction.listing.availability-plan}}
+{{date date format="MMM d" tz=timezone}}
+{{/with}}
 {{~/inline~}}
 
 <html>
@@ -46,12 +60,12 @@
           <td class="right">End date</td>
         </tr>
         <tr>
-          <th class="left">{{date booking.start format="EE hh:mm a"}}</th>
-          <th class="right">{{date booking.end format="EE hh:mm a"}}</th>
+          <th class="left">{{> format-day-time date=booking.start}}</th>
+          <th class="right">{{> format-day-time date=booking.end}}</th>
         </tr>
         <tr class="bottom-row">
-          <th class="left">{{date booking.start format="MMM d"}}</th>
-          <th class="right">{{date booking.end format="MMM d"}}</th>
+          <th class="left">{{> format-month-date date=booking.start format="MMM d"}}</th>
+          <th class="right">{{> format-month-date date=booking.end format="MMM d"}}</th>
         </tr>
       </thead>
       <tbody>

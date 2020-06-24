@@ -82,7 +82,22 @@ and [Custom
 pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
 articles in Flex Docs.
 
+### flex-default-process:
+
+This is the default process that is created in our backend for new
+test marketplaces.
+
+When used in [Flex Template for Web
+(FTW)](https://github.com/sharetribe/flex-template-web) customizing
+[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
+done within FTW by utilizing [privileged
+transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
+
+![flex-default-process](./flex-default-process.png)
+
 ### preauth-nightly-booking:
+
+**DEPRECATED** The current default process is named `flex-default-process`.
 
 This is the default process that is created in our backend for new
 test marketplaces and what [Flex Template for Web
@@ -95,6 +110,10 @@ In this process listings are booked for full nights.
 
 ### preauth-daily-booking:
 
+**DEPRECATED** The current default process is named
+  `flex-default-process` and it can perform the
+  `preauth-daily-booking` functionality.
+
 This is very similar to the `preauth-nightly-booking` process, but
 bookings are made for full days, not nights.
 
@@ -106,6 +125,10 @@ accordingly.
 ![preauth-daily-booking](./preauth-daily-booking.png)
 
 ### preauth-unit-booking:
+
+**DEPRECATED** The current default process is named
+  `flex-default-process` and it can perform the
+  `preauth-unit-booking` functionality.
 
 This process calculates the total price by units, not the booking
 times. The total price is calculated by multiplying the listing price
@@ -123,6 +146,11 @@ accordingly.
 ![preauth-unit-booking](./preauth-unit-booking.png)
 
 ### preauth-unit-time-booking:
+
+**DEPRECATED** The current default process is named
+  `flex-default-process` and it can perform the
+  `preauth-unit-time-booking` functionality when `create-booking`
+  action is updated with config parameter `:type :time`.
 
 This process is similar to the `preauth-unit-booking` process, but has
 the time-based availability management enabled. The transaction prices

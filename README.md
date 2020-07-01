@@ -95,6 +95,18 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 
 ![flex-default-process](./flex-default-process.png)
 
+### flex-hourly-default-process:
+
+This is the default for FTW-houly. It's otherwise similar to `flex-default-process` but it uses the time-based availability (i.e. action create-booking has type time).
+
+When used in [Flex Template for Web
+(FTW)](https://github.com/sharetribe/flex-template-web) customizing
+[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
+done within FTW by utilizing [privileged
+transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
+
+![flex-default-process](./flex-default-process.png)
+
 ### preauth-nightly-booking:
 
 **DEPRECATED** The current default process is named `flex-default-process`.
@@ -111,8 +123,8 @@ In this process listings are booked for full nights.
 ### preauth-daily-booking:
 
 **DEPRECATED** The current default process is named
-  `flex-default-process` and it can perform the
-  `preauth-daily-booking` functionality.
+`flex-default-process` and it can perform the
+`preauth-daily-booking` functionality.
 
 This is very similar to the `preauth-nightly-booking` process, but
 bookings are made for full days, not nights.
@@ -127,8 +139,8 @@ accordingly.
 ### preauth-unit-booking:
 
 **DEPRECATED** The current default process is named
-  `flex-default-process` and it can perform the
-  `preauth-unit-booking` functionality.
+`flex-default-process` and it can perform the
+`preauth-unit-booking` functionality.
 
 This process calculates the total price by units, not the booking
 times. The total price is calculated by multiplying the listing price
@@ -148,9 +160,9 @@ accordingly.
 ### preauth-unit-time-booking:
 
 **DEPRECATED** The current default process is named
-  `flex-default-process` and it can perform the
-  `preauth-unit-time-booking` functionality when `create-booking`
-  action is updated with config parameter `:type :time`.
+`flex-default-process` and it can perform the
+`preauth-unit-time-booking` functionality when `create-booking`
+action is updated with config parameter `:type :time`.
 
 This process is similar to the `preauth-unit-booking` process, but has
 the time-based availability management enabled. The transaction prices

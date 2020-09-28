@@ -118,10 +118,10 @@ figures@^2.0.0:
   dependencies:
     escape-string-regexp "^1.0.5"
 
-flex-cli@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/flex-cli/-/flex-cli-1.4.0.tgz#b70212bf6ff4b525f302c16214e6de4466e20650"
-  integrity sha512-gC+RcQU4C/QpKbxt1DfDux8XWjm0A482bdjqb11Rfp7TqCWxYyNriK3c/ECascCWfwVILRy7k7n/PiEU9fgAJg==
+flex-cli@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/flex-cli/-/flex-cli-1.6.0.tgz#93ce149462c28062fb74e4850a5e98f264110470"
+  integrity sha512-TetUXx6YNvcc6bpRdAUsQv/U3Fwhp9sEAnlzZ0N634SIaadsJkX4ufbmgL//W4a0HBJ+jYb05acZqV8il0Dk0A==
   dependencies:
     chalk "^2.4.2"
     form-data "^2.5.1"

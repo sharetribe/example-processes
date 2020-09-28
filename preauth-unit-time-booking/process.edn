@@ -7,8 +7,8 @@
   {:name :transition/request-payment,
    :actor :actor.role/customer,
    :actions
-   [{:name :action/create-booking,
-     :config {:observe-availability? true, :type :time}}
+   [{:name :action/create-pending-booking,
+     :config {:type :time}}
     {:name :action/calculate-tx-unit-total-price}
     {:name :action/calculate-tx-provider-commission,
      :config {:commission 0.1M}}
@@ -17,8 +17,8 @@
   {:name :transition/request-payment-after-enquiry,
    :actor :actor.role/customer,
    :actions
-   [{:name :action/create-booking,
-     :config {:observe-availability? true, :type :time}}
+   [{:name :action/create-pending-booking,
+     :config {:type :time}}
     {:name :action/calculate-tx-unit-total-price}
     {:name :action/calculate-tx-provider-commission,
      :config {:commission 0.1M}}

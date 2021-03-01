@@ -107,6 +107,14 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 
 ![flex-default-process](./flex-default-process.png)
 
+### instant-booking:
+
+This is an example of instant booking supporting both, card and push payment methods.
+
+See [payment methods overview](https://www.sharetribe.com/docs/background/payment-methods-overview/) for more info.
+
+![instant-booking](./instant-booking.png)
+
 ### preauth-nightly-booking:
 
 **DEPRECATED** The current default process is named `flex-default-process`.

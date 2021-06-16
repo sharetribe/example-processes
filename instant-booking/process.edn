@@ -3,12 +3,16 @@
  [{:name :transition/request-push-payment
    :actor :actor.role/customer
    :actions [{:name :action/create-pending-booking}
+             {:name :action/privileged-set-line-items}
              {:name :action/stripe-create-payment-intent-push}]
+   :privileged? true
    :to :state/payment-pending}
   {:name :transition/request-card-payment
    :actor :actor.role/customer
    :actions [{:name :action/create-pending-booking}
+             {:name :action/privileged-set-line-items}
              {:name :action/stripe-create-payment-intent}]
+   :privileged? true
    :to :state/payment-pending}
   {:name :transition/expire-payment
    :at

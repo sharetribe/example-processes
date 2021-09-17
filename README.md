@@ -107,6 +107,14 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 
 ![flex-default-process](./flex-default-process.png)
 
+### flex-product-default-process:
+
+This will be the default process for the upcoming FTW-product. It is a
+transaction process designed for product selling with shipping or pickup that
+uses the Flex stock management features.
+
+![flex-product-default-process](./flex-product-default-process.png)
+
 ### instant-booking:
 
 This is an example of instant booking supporting both, card and push payment methods.

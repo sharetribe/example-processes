@@ -12,6 +12,6 @@
     "test-ci": "find . -name process.edn | cut -d / -f 2 | xargs -n1 -t flex-cli process --path > /dev/null"
   },
   "dependencies": {
-    "flex-cli": "^1.8.0"
+    "flex-cli": "^1.9.0"
   }
 }

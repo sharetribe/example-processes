@@ -88,7 +88,7 @@ This is the default process that is created in our backend for new
 test marketplaces.
 
 When used in [Flex Template for Web
-(FTW)](https://github.com/sharetribe/flex-template-web) customizing
+- Daily (FTW-daily)](https://github.com/sharetribe/ftw-daily) customizing
 [pricing](https://www.sharetribe.com/docs/background/pricing/) can be
 done within FTW by utilizing [privileged
 transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
@@ -100,7 +100,7 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 This is the default for FTW-houly. It's otherwise similar to `flex-default-process` but it uses the time-based availability (i.e. action create-booking has type time).
 
 When used in [Flex Template for Web
-(FTW)](https://github.com/sharetribe/flex-template-web) customizing
+- Hourly (FTW-hourly)](https://github.com/sharetribe/ftw-hourly) customizing
 [pricing](https://www.sharetribe.com/docs/background/pricing/) can be
 done within FTW by utilizing [privileged
 transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
@@ -109,9 +109,15 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 
 ### flex-product-default-process:
 
-This will be the default process for the upcoming FTW-product. It is a
+This is the default process for FTW-product. It is a
 transaction process designed for product selling with shipping or pickup that
 uses the Flex stock management features.
+
+When used in [Flex Template for Web
+- Product (FTW-product)](https://github.com/sharetribe/ftw-product) customizing
+[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
+done within FTW by utilizing [privileged
+transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
 
 ![flex-product-default-process](./flex-product-default-process.png)
 

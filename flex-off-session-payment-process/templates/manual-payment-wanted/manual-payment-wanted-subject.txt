@@ -1,0 +1,1 @@
+Confirm your payment for {{transaction.listing.title}}

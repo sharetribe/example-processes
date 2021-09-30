@@ -87,8 +87,7 @@ articles in Flex Docs.
 This is the default process that is created in our backend for new
 test marketplaces.
 
-When used in [Flex Template for Web
-- Daily (FTW-daily)](https://github.com/sharetribe/ftw-daily) customizing
+When used in **Flex Template for Web: Daily** ([FTW-daily](https://github.com/sharetribe/ftw-daily)) customizing
 [pricing](https://www.sharetribe.com/docs/background/pricing/) can be
 done within FTW by utilizing [privileged
 transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
@@ -99,8 +98,7 @@ transitions](https://www.sharetribe.com/docs/background/privileged-transitions/)
 
 This is the default for FTW-houly. It's otherwise similar to `flex-default-process` but it uses the time-based availability (i.e. action create-booking has type time).
 
-When used in [Flex Template for Web
-- Hourly (FTW-hourly)](https://github.com/sharetribe/ftw-hourly) customizing
+When used in **Flex Template for Web: Hourly** ([FTW-hourly](https://github.com/sharetribe/ftw-hourly)) customizing
 [pricing](https://www.sharetribe.com/docs/background/pricing/) can be
 done within FTW by utilizing [privileged
 transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
@@ -113,8 +111,7 @@ This is the default process for FTW-product. It is a
 transaction process designed for product selling with shipping or pickup that
 uses the Flex stock management features.
 
-When used in [Flex Template for Web
-- Product (FTW-product)](https://github.com/sharetribe/ftw-product) customizing
+When used in **Flex Template for Web: Product** ([FTW-product](https://github.com/sharetribe/ftw-product)) customizing
 [pricing](https://www.sharetribe.com/docs/background/pricing/) can be
 done within FTW by utilizing [privileged
 transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
@@ -134,8 +131,7 @@ See [payment methods overview](https://www.sharetribe.com/docs/background/paymen
 **DEPRECATED** The current default process is named `flex-default-process`.
 
 This is the default process that is created in our backend for new
-test marketplaces and what [Flex Template for Web
-(FTW)](https://github.com/sharetribe/flex-template-web) expects as the
+test marketplaces and what [Flex Template for Web (FTW)](https://github.com/sharetribe/flex-template-web) expects as the
 default.
 
 In this process listings are booked for full nights.

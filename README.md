@@ -14,8 +14,8 @@ in Flex Docs.
 
 To get up and running with Flex CLI, see the [Getting started with
 Flex
-CLI](https://www.sharetribe.com/docs/tutorials/getting-started-with-flex-cli/)
-tutorial in Flex Docs.
+CLI](https://www.sharetribe.com/docs/flex-cli/getting-started-with-flex-cli/)
+guide in Flex Docs.
 
 ## Usage
 

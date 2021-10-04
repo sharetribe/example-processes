@@ -1,10 +1,10 @@
 {:format :v3,
  :transitions
- [{:name :transition/enquire,
+ [{:name :transition/request-booking,
    :actor :actor.role/customer,
    :privileged? true,
-   :actions [
-     {:name :action/create-pending-booking}
+   :actions 
+    [{:name :action/create-pending-booking}
      {:name :action/privileged-set-line-items}],
    :to :state/pending}
   {:name :transition/accept,
@@ -28,6 +28,11 @@
    :actions [{:name :action/decline-booking}],
    :from :state/pending,
    :to :state/declined}
+  ;; This transition starts the attempt for automatic
+  ;; off-session payment process. NB! In this example process,
+  ;; the timepoint is set as one day before the booking starts.
+  ;; This timepoint is also referenced in the template for
+  ;; :notification/manual-payment-wanted.
   {:name :transition/mark-pending-payment,
    :at
    {:fn/minus
@@ -35,6 +40,8 @@
    :from :state/accepted,
    :to :state/pending-payment,
    :actions []}
+  ;; This transition handles the automatic off-session payment.
+  ;; If it fails, the transaction remains in :state/pending-payment,
   {:name :transition/auto-payment,
    :from :state/pending-payment,
    :to :state/paid,
@@ -43,19 +50,21 @@
     [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
      {:fn/period ["PT5M"]}]},
    :actions
-   [{:name :action/stripe-create-payment-intent, :config { :use-customer-default-payment-method? :true }}
+   [{:name :action/stripe-create-payment-intent, :config {:use-customer-default-payment-method? :true}}
     {:name :action/stripe-capture-payment-intent}]}
+  ;; This transition starts the manual payment process.
   {:name :transition/initiate-payment,
    :actor :actor.role/customer,
    :from :state/pending-payment,
    :to :state/pending-confirmation,
-   :actions [{ :name :action/stripe-create-payment-intent }]}
+   :actions [{:name :action/stripe-create-payment-intent}]}
   {:name :transition/confirm-payment,
    :actor :actor.role/customer,
    :from :state/pending-confirmation,
    :to :state/paid,
-   :actions [{ :name :action/stripe-confirm-payment-intent },
-    { :name :action/stripe-capture-payment-intent }]}
+   :actions 
+    [{:name :action/stripe-confirm-payment-intent},
+    {:name :action/stripe-capture-payment-intent}]}
   {:name :transition/complete,
    :at {:fn/timepoint [:time/booking-end]},
    :actions [{:name :action/stripe-create-payout}],
@@ -116,7 +125,7 @@
    :to :state/reviewed}],
  :notifications
  [{:name :notification/new-booking-request,
-   :on :transition/enquire,
+   :on :transition/request-booking,
    :to :actor.role/provider,
    :template :new-booking-request}
   {:name :notification/booking-request-accepted,
@@ -131,6 +140,9 @@
    :on :transition/expire,
    :to :actor.role/customer,
    :template :booking-request-auto-declined}
+  ;; This notification gets sent if the transaction does not
+  ;; succeed in moving from :state/pending-payment to :state/paid
+  ;; with :transition/auto-payment.
   {:name :notification/manual-payment-wanted,
    :on :transition/mark-pending-payment,
    :to :actor.role/customer,

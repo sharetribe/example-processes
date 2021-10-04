@@ -1,4 +1,3 @@
-
 {{~#*inline "format-money"~}}
 {{money-amount money}} {{money.currency}}
 {{~/inline~}}
@@ -39,7 +38,7 @@
     {{#with transaction}}
     <p>{{provider.display-name}} has accepted your booking request for {{listing.title}} from {{> format-date date=booking.start}} to {{> format-date date=booking.end}}.</p>
 
-    <p>We have charged {{> format-money money=payin-total}} from your credit card. Here's your receipt.</p>
+    <p>We will charge {{> format-money money=payin-total}} from the credit card you have saved in {{marketplace.name}} Payment Methods one day before the booking starts. Here's the breakdown of your upcoming charge.</p>
 
     <table>
       <thead>

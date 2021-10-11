@@ -1,0 +1,14 @@
+<html>
+  <body>
+    {{#with transaction}}
+    <h1>Please confirm your payment for {{listing.title}}!</h1>
+
+    <p>You recently booked {{listing.title}} from {{provider.display-name}}. To complete your payment, we need you to take action.</p>
+
+    <p><a href="{{marketplace.url}}/order/{{url-encode id}}/details">Click here to go to payment page</a></p>
+    {{/with}}
+
+    <hr />
+    <p>You have received this email notification because you are a member of {{marketplace.name}}. If you no longer wish to receive these emails, please contact {{marketplace.name}} team.</p>
+  </body>
+</html>

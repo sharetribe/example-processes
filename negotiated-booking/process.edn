@@ -1,75 +1,74 @@
 {:format :v3,
  :transitions
- [{:name :transition/enquire,
+ [
+  {:name :transition/inquire,
    :actor :actor.role/customer,
    :actions [],
-   :to :state/enquiry}
+   :to :state/inquiry}
   {:name :transition/request,
    :actor :actor.role/customer,
    :actions
    [{:name :action/create-pending-booking}
-    {:name :action/calculate-tx-nightly-total-price}
-    {:name :action/set-negotiated-total-price}],
-   :to :state/customer-made-offer}
-  {:name :transition/request-after-enquiry,
+    {:name :action/privileged-set-line-items}],
+   :to :state/customer-made-offer
+   :privileged? true}
+  {:name :transition/request-after-inquiry,
    :actor :actor.role/customer,
    :actions
    [{:name :action/create-pending-booking}
-    {:name :action/calculate-tx-nightly-total-price}
-    {:name :action/set-negotiated-total-price}],
-   :from :state/enquiry,
-   :to :state/customer-made-offer}
-  {:name :transition/provider-accept,
-   :actor :actor.role/provider,
-   :actions
-   [{:name :action/calculate-tx-provider-commission,
-     :config {:commission 0.1M}}],
-   :from :state/customer-made-offer,
-   :to :state/pending-customer}
-  {:name :transition/pay,
+    {:name :action/privileged-set-line-items}],
+   :from :state/inquiry,
+   :to :state/customer-made-offer
+   :privileged? true} 
+  {:name :transition/provider-accept
+   :actor :actor.role/provider
+   :actions []
+   :from :state/customer-made-offer
+   :to :state/pending-payment} 
+  {:name :transition/pay
+   :actor :actor.role/customer
+   :actions [{:name :action/stripe-create-payment-intent}]
+   :from :state/pending-payment
+   :to :state/pending-confirmation}
+  {:name :transition/confirm-capture-payment,
    :actor :actor.role/customer,
-   :actions [{:name :action/stripe-create-payment-intent}],
-   :from :state/pending-customer,
-   :to :state/pending-payment}
-  {:name :transition/confirm-payment,
-   :actor :actor.role/customer,
-   :actions
+   :actions 
    [{:name :action/stripe-confirm-payment-intent}
     {:name :action/accept-booking}
     {:name :action/stripe-capture-payment-intent}],
-   :from :state/pending-payment,
+   :from :state/pending-confirmation,
    :to :state/accepted}
   {:name :transition/expire-payment,
    :at
    {:fn/plus
-    [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
+    [{:fn/timepoint [:time/first-entered-state :state/pending-confirmation]}
      {:fn/period ["PT15M"]}]},
    :actions
    [{:name :action/decline-booking}
     {:name :action/calculate-full-refund}
     {:name :action/stripe-refund-payment}],
-   :from :state/pending-payment,
+   :from :state/pending-confirmation,
    :to :state/payment-expired}
   {:name :transition/expire,
    :at
    {:fn/min
     [{:fn/plus
-      [{:fn/timepoint
-        [:time/first-entered-state :state/pending-payment]}
+      [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
        {:fn/period ["P6D"]}]}
      {:fn/plus
       [{:fn/timepoint [:time/booking-end]} {:fn/period ["P1D"]}]}]},
    :actions
    [{:name :action/decline-booking}
-    {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
-   :from :state/pending-customer,
+    {:name :action/calculate-full-refund}],
+   :from :state/pending-payment,
    :to :state/declined}
   {:name :transition/provider-offer,
    :actor :actor.role/provider,
-   :actions [{:name :action/set-negotiated-total-price}],
+   :actions
+   [{:name :action/privileged-set-line-items}],
    :from :state/customer-made-offer,
-   :to :state/provider-made-offer}
+   :to :state/provider-made-offer
+   :privileged? true}
   {:name :transition/provider-decline,
    :actor :actor.role/provider,
    :actions
@@ -91,19 +90,18 @@
     {:name :action/calculate-full-refund}],
    :from :state/customer-made-offer,
    :to :state/declined}
-  {:name :transition/customer-accept,
-   :actor :actor.role/customer,
-   :actions
-   [{:name :action/calculate-tx-provider-commission,
-     :config {:commission 0.1M}}
-    {:name :action/stripe-create-payment-intent}],
-   :from :state/provider-made-offer,
+  {:name :transition/customer-accept
+   :actor :actor.role/customer
+   :actions []
+   :from :state/provider-made-offer
    :to :state/pending-payment}
   {:name :transition/customer-offer,
    :actor :actor.role/customer,
-   :actions [{:name :action/set-negotiated-total-price}],
+   :actions
+   [{:name :action/privileged-set-line-items}],
    :from :state/provider-made-offer,
-   :to :state/customer-made-offer}
+   :to :state/customer-made-offer
+   :privileged? true}
   {:name :transition/customer-decline,
    :actor :actor.role/customer,
    :actions
@@ -124,7 +122,7 @@
    [{:name :action/decline-booking}
     {:name :action/calculate-full-refund}],
    :from :state/provider-made-offer,
-   :to :state/declined}
+   :to :state/declined} 
   {:name :transition/complete,
    :at {:fn/timepoint [:time/booking-end]},
    :actions [{:name :action/stripe-create-payout}],
@@ -188,8 +186,8 @@
    :on :transition/request,
    :to :actor.role/provider,
    :template :new-booking-request-with-offer}
-  {:name :notification/new-booking-request-after-enquiry-with-offer,
-   :on :transition/request-after-enquiry,
+  {:name :notification/new-booking-request-after-inquiry-with-offer,
+   :on :transition/request-after-inquiry,
    :to :actor.role/provider,
    :template :new-booking-request-with-offer}
   {:name :notification/provider-accepted-offer,
@@ -197,7 +195,7 @@
    :to :actor.role/customer,
    :template :provider-accepted-offer}
   {:name :notification/customer-paid,
-   :on :transition/confirm-payment,
+   :on :transition/confirm-capture-payment,
    :to :actor.role/provider,
    :template :customer-paid}
   {:name :notification/payment-expired,

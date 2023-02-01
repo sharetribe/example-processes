@@ -1,12 +1,26 @@
 {:format :v3,
  :transitions
- [{:name :transition/request-booking,
+ [{:name :transition/inquire,
+   :actor :actor.role/customer,
+   :actions [{:name :action/update-protected-data}],
+   :to :state/inquiry}
+  {:name :transition/request-booking,
    :actor :actor.role/customer,
    :privileged? true,
    :actions 
-    [{:name :action/create-pending-booking}
+    [{:name :action/update-protected-data}
+     {:name :action/create-pending-booking :config {:type :time}}
      {:name :action/privileged-set-line-items}],
    :to :state/pending}
+  {:name :transition/request-booking-after-inquiry,
+   :actor :actor.role/customer,
+   :actions
+   [{:name :action/update-protected-data}
+    {:name :action/create-pending-booking, :config {:type :time}}
+    {:name :action/privileged-set-line-items}],
+   :from :state/inquiry,
+   :to :state/pending,
+   :privileged? true}
   {:name :transition/accept,
    :actor :actor.role/provider,
    :actions [{:name :action/accept-booking}],
@@ -14,7 +28,8 @@
    :to :state/accepted}
   {:name :transition/decline,
    :actor :actor.role/provider,
-   :actions [{:name :action/decline-booking}],
+   :actions [{:name :action/decline-booking}
+             {:name :action/calculate-full-refund}],
    :from :state/pending,
    :to :state/declined}
   {:name :transition/expire,
@@ -25,7 +40,7 @@
        {:fn/period ["P6D"]}]}
      {:fn/minus
       [{:fn/timepoint [:time/booking-end]} {:fn/period ["P1D"]}]}]},
-   :actions [{:name :action/decline-booking}],
+   :actions [{:name :action/decline-booking} {:name :action/calculate-full-refund}],
    :from :state/pending,
    :to :state/declined}
   ;; This transition starts the attempt for automatic
@@ -53,18 +68,26 @@
    [{:name :action/stripe-create-payment-intent, :config {:use-customer-default-payment-method? :true}}
     {:name :action/stripe-capture-payment-intent}]}
   ;; This transition starts the manual payment process.
-  {:name :transition/initiate-payment,
+  {:name :transition/initiate-manual-payment,
    :actor :actor.role/customer,
    :from :state/pending-payment,
    :to :state/pending-confirmation,
    :actions [{:name :action/stripe-create-payment-intent}]}
-  {:name :transition/confirm-payment,
+  {:name :transition/confirm-manual-payment,
    :actor :actor.role/customer,
    :from :state/pending-confirmation,
    :to :state/paid,
    :actions 
     [{:name :action/stripe-confirm-payment-intent},
     {:name :action/stripe-capture-payment-intent}]}
+  {:name :transition/cancel-from-pending-confirmation
+   :actor :actor.role/operator
+   :from :state/pending-confirmation
+   :to :state/cancelled 
+   :actions
+   [{:name :action/cancel-booking}
+    {:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}],}
   {:name :transition/complete,
    :at {:fn/timepoint [:time/booking-end]},
    :actions [{:name :action/stripe-create-payout}],

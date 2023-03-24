@@ -147,58 +147,58 @@
    :from :state/reviewed-by-provider,
    :to :state/reviewed}],
  :notifications
- [{:name :notification/new-booking-request,
+ [{:name :notification/booking-new-request,
    :on :transition/request-booking,
    :to :actor.role/provider,
-   :template :new-booking-request}
-  {:name :notification/booking-request-accepted,
+   :template :booking-new-request}
+  {:name :notification/booking-accepted-request,
    :on :transition/accept,
    :to :actor.role/customer,
-   :template :booking-request-accepted}
-  {:name :notification/booking-request-declined,
+   :template :booking-accepted-request}
+  {:name :notification/booking-declined-request,
    :on :transition/decline,
    :to :actor.role/customer,
-   :template :booking-request-declined}
-  {:name :notification/booking-request-auto-declined,
+   :template :booking-declined-request}
+  {:name :notification/booking-auto-declined-request,
    :on :transition/expire,
    :to :actor.role/customer,
-   :template :booking-request-auto-declined}
+   :template :booking-auto-declined-request}
   ;; This notification gets sent if the transaction does not
   ;; succeed in moving from :state/pending-payment to :state/paid
   ;; with :transition/auto-payment.
-  {:name :notification/manual-payment-wanted,
+  {:name :notification/booking-manual-payment-wanted,
    :on :transition/mark-pending-payment,
    :to :actor.role/customer,
-   :template :manual-payment-wanted,
+   :template :booking-manual-payment-wanted,
    :at
    {:fn/plus
     [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
      {:fn/period ["PT10M"]}]}}
-  {:name :notification/money-paid,
+  {:name :notification/booking-money-paid,
    :on :transition/complete,
    :to :actor.role/provider,
-   :template :money-paid}
+   :template :booking-money-paid}
   {:name :notification/review-period-start-provider,
    :on :transition/complete,
    :to :actor.role/provider,
-   :template :review-by-provider-wanted}
+   :template :booking-review-by-provider-wanted}
   {:name :notification/review-period-start-customer,
    :on :transition/complete,
    :to :actor.role/customer,
-   :template :review-by-customer-wanted}
+   :template :booking-review-by-customer-wanted}
   {:name :notification/review-by-provider-first,
    :on :transition/review-1-by-provider,
    :to :actor.role/customer,
-   :template :review-by-other-party-unpublished}
+   :template :booking-review-by-other-party-unpublished}
   {:name :notification/review-by-customer-first,
    :on :transition/review-1-by-customer,
    :to :actor.role/provider,
-   :template :review-by-other-party-unpublished}
+   :template :booking-review-by-other-party-unpublished}
   {:name :notification/review-by-provider-second,
    :on :transition/review-2-by-provider,
    :to :actor.role/customer,
-   :template :review-by-other-party-published}
+   :template :booking-review-by-other-party-published}
   {:name :notification/review-by-customer-second,
    :on :transition/review-2-by-customer,
    :to :actor.role/provider,
-   :template :review-by-other-party-published}]}
+   :template :booking-review-by-other-party-published}]}

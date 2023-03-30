@@ -9,11 +9,12 @@ There are a number of configurations in the template that are necessary for taki
 - Add a new listing type in _src/config/configListing.js_, and add this negotiation process as the transaction type.
 - Add a _transactionProcessNegotiation.js_ file to the _src/transactions_ folder. The file should describe the states and transitions of the process. You can model this file according to _transactionProcessBooking.js_ in the same folder.
 - Modify _transaction.js_ file in the same folder to return the negotiation process information when necessary
+- Update _isBookingProcess_ function in _transaction.js_ to include this process.
 - Add a _src/containers/TransactionPage/TransactionPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file according to the _TransactionPage.stateDataBooking.js_ file in the same folder.
 - Use _TransactionPage.stateDataNegotiation.js_ in the _TransactionPage.stateData.js_ file to return state data for the correct process.
 - Add a _src/containers/InboxPage/InboxPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file according to _InboxPage.stateDataBooking.js_ in the same folder.
 - Use _InboxPage.stateDataNegotiation.js_ in the _InboxPage.stateData.js_ file to return state data for the correct process.
-
+- Add process-specific microcopy to your microcopy file.
 
 ## 3. Add the correct inputs for price negotiation  
 
@@ -29,11 +30,14 @@ In the template, _CheckoutPage.js_ is configured to handle payments. Therefore, 
 
 Once the transaction price has been accepted, redirect the customer to _CheckoutPage.js_ to complete the payment. You will need to modify the `fnRequestPayment` function in `handlePaymentIntent` to trigger the correct transition for the negotiation process.
 
+
 ## 5. Calculate line items with the suggested total price
 	
-You will also need to modify the line item calculation used for the transaction. You can, for instance, create a line item `suggested-adjustment` that reduces the total to the suggested number. For instance, if the default transaction total would be $250 and the suggested total is $200, the `suggested-adjustment` line item would have quantity 1 and unitPrice -$50.
+You will also need to modify the line item calculation used for the transaction. You will need to create a line item `suggested-adjustment` that reduces the total to the suggested number. The transaction process email templates expect a line item with code `line-item/suggested-adjustment`, so if your line item code is different, you will need to update the email templates as well. 
 
-```
+For instance, if the default transaction total would be $250 and the suggested total is $200, the `suggested-adjustment` line item would have quantity 1 and unitPrice -$50.
+
+```js
 // Returns the adjustment as negative if it is a discount, and 
 // positive if it is an extra payment.
 exports.resolveSuggestedAdjustment = (order, negotiatedTotal) => {
@@ -45,7 +49,7 @@ exports.resolveSuggestedAdjustment = (order, negotiatedTotal) => {
 }
 ```
 
-```
+```js
   const suggestedAdjustment = resolveSuggestedAdjustment(order, orderData.negotiatedTotal)
 
   const suggestedAdjustmentLineItem = suggestedAdjustment ? [{
@@ -58,6 +62,6 @@ exports.resolveSuggestedAdjustment = (order, negotiatedTotal) => {
 
 
 ## 6. Add relevant notifications
-By default, the FTW template shows a provider notification when they have a transaction to accept. For the automatic off-session payment process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_. 
+By default, the web template shows a provider notification when they have a transaction to accept. For the automatic off-session payment process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_. 
 
 Customer action is required when the provider has made a counter offer, or when the provider has accepted the transaction and the customer needs to initiate manual payment. Provider action is needed when the customer has made an offer.

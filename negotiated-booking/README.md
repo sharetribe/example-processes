@@ -7,12 +7,12 @@ You can see the instructions in [this tutorial article](https://www.sharetribe.c
 There are a number of configurations in the template that are necessary for taking the new process into use.
 
 - Add a new listing type in _src/config/configListing.js_, and add this negotiation process as the transaction type.
-- Add a _transactionProcessNegotiation.js_ file to the _src/transactions_ folder. The file should describe the states and transitions of the process. You can model this file according to _transactionProcessBooking.js_ in the same folder.
+- Add a _transactionProcessNegotiation.js_ file to the _src/transactions_ folder. The file should describe the states and transitions of the process. You can model this file based on [this example](https://gist.github.com/SariSaar/e43af0af1fe9b5db43d32869efe229a5), or base it on _transactionProcessBooking.js_ in the same folder.
 - Modify _transaction.js_ file in the same folder to return the negotiation process information when necessary
 - Update _isBookingProcess_ function in _transaction.js_ to include this process.
-- Add a _src/containers/TransactionPage/TransactionPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file according to the _TransactionPage.stateDataBooking.js_ file in the same folder.
+- Add a _src/containers/TransactionPage/TransactionPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file based on [this example](https://gist.github.com/SariSaar/ba3b0b63a0dbb571583c14c2d55d852e), or base it on _TransactionPage.stateDataBooking.js_ file in the same folder.
 - Use _TransactionPage.stateDataNegotiation.js_ in the _TransactionPage.stateData.js_ file to return state data for the correct process.
-- Add a _src/containers/InboxPage/InboxPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file according to _InboxPage.stateDataBooking.js_ in the same folder.
+- Add a _src/containers/InboxPage/InboxPage.stateDataNegotiation.js_ file to return the correct state information for each state of the process. You can model this file based on [this example](https://gist.github.com/SariSaar/73635736842daa735e6d93722ed35cdc), or base it on _InboxPage.stateDataBooking.js_ in the same folder.
 - Use _InboxPage.stateDataNegotiation.js_ in the _InboxPage.stateData.js_ file to return state data for the correct process.
 - Add process-specific microcopy to your microcopy file.
 

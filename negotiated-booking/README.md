@@ -62,6 +62,6 @@ exports.resolveSuggestedAdjustment = (order, negotiatedTotal) => {
 
 
 ## 6. Add relevant notifications
-By default, the web template shows a provider notification when they have a transaction to accept. For the automatic off-session payment process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_. 
+By default, the web template shows a provider notification when they have a transaction to accept. For the negotiation process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_. 
 
 Customer action is required when the provider has made a counter offer, or when the provider has accepted the transaction and the customer needs to initiate manual payment. Provider action is needed when the customer has made an offer.

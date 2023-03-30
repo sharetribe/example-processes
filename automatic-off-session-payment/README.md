@@ -26,4 +26,6 @@ If the automatic payment does not happen for some reason (e.g. insufficient fund
 
 ## 4. Add relevant notifications
 
-By default, the FTW template shows a provider notification when they have a transaction to accept. For the automatic off-session payment process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_. Customer action is required when the automatic payment fails and the customer needs to update their payment method and trigger the payment manually.
+By default, the web template shows a provider notification when they have a transaction to accept. For the automatic off-session payment process, you will need to add a logic to _src/ducks/user.duck.js_ to fetch both customer and provider transactions where the next transitions require user action. You then need to add the notifications to _src/containers/TopbarContainer/TopbarContainer.js_ and _src/containers/InboxPage/InboxPage.js_.
+
+Customer action is required when the automatic payment fails and the customer needs to update their payment method and trigger the payment manually.

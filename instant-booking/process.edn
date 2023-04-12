@@ -13,6 +13,15 @@
     {:name :action/stripe-create-payment-intent}],
    :to :state/pending-payment,
    :privileged? true}
+  {:name :transition/request-push-payment,
+   :actor :actor.role/customer,
+   :actions
+   [{:name :action/update-protected-data}
+    {:name :action/create-pending-booking, :config {:type :time}}
+    {:name :action/privileged-set-line-items}
+    {:name :action/stripe-create-payment-intent-push}],
+   :to :state/pending-payment,
+   :privileged? true}
   {:name :transition/request-payment-after-inquiry,
    :actor :actor.role/customer,
    :actions
@@ -20,6 +29,16 @@
     {:name :action/create-pending-booking, :config {:type :time}}
     {:name :action/privileged-set-line-items}
     {:name :action/stripe-create-payment-intent}],
+   :from :state/inquiry,
+   :to :state/pending-payment,
+   :privileged? true}
+  {:name :transition/request-push-payment-after-inquiry,
+   :actor :actor.role/customer,
+   :actions
+   [{:name :action/update-protected-data}
+    {:name :action/create-pending-booking, :config {:type :time}}
+    {:name :action/privileged-set-line-items}
+    {:name :action/stripe-create-payment-intent-push}],
    :from :state/inquiry,
    :to :state/pending-payment,
    :privileged? true}

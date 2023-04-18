@@ -19,7 +19,7 @@ There are a number of configurations in the template that are necessary for taki
         label: 'Instant booking',
         transactionType: {
         process: 'instant-booking',
-        alias: 'release-1',
+        alias: 'instant-booking/release-1',
         unitType: 'day',
         }
     }

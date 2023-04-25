@@ -32,34 +32,34 @@ cd flex-example-processes
 ```
 
 Let's use `my-marketplace-id` as an example Marketplace ID and
-`preauth-daily-booking` as the process that is taken into use.
+`instant-booking` as the process that is taken into use.
 
 Using the example processes, create a new process to your marketplace:
 
 ```
-flex-cli process create -m my-marketplace-id --process preauth-daily-booking --path preauth-daily-booking
+flex-cli process create -m my-marketplace-id --process instant-booking --path instant-booking
 ```
 
 Create an alias to the process:
 
 ```
-flex-cli process create-alias -m my-marketplace-id --process preauth-daily-booking --version 1 --alias release-1
+flex-cli process create-alias -m my-marketplace-id --process instant-booking --version 1 --alias release-1
 ```
 
 Check that everything is good:
 
 ```
-flex-cli process list -m my-marketplace-id --process preauth-daily-booking
+flex-cli process list -m my-marketplace-id --process instant-booking
 ```
 
-Then set up your FTW customization to use that process alias and
-continue customizing your process and UI.
+Then set up your Sharetribe Web Web Template customization to use that process alias and
+continue customizing your process and UI. You can find process-specific suggestions in the README.md file of each process.
 
 ## Learn more
 
 For customizing the transaction process, see the [transaction process
 format
-guide](https://gist.github.com/ovan/7b436bb73ef3b49993ba2e3a9e9df59d).
+guide](https://www.sharetribe.com/docs/references/transaction-process-format/).
 
 For editing the transactional email templates, see the [Email
 templates
@@ -82,123 +82,42 @@ and [Custom
 pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
 articles in Flex Docs.
 
-### flex-default-process:
+### default-booking:
 
 This is the default process that is created in our backend for new
-test marketplaces.
+test marketplaces and used for bookings.
 
-When used in **Flex Template for Web: Daily** ([FTW-daily](https://github.com/sharetribe/ftw-daily)) customizing
-[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
-done within FTW by utilizing [privileged
-transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
+When used in **Sharetribe Web Template** ([web-template](https://github.com/sharetribe/web-template/)) customizing
+[pricing](https://www.sharetribe.com/docs/concepts/pricing/) can be
+done within the template by utilizing [privileged
+transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 
-![flex-default-process](./flex-default-process.png)
+![default-booking](./default-booking.png)
 
-### flex-hourly-default-process:
+### default-purchase:
 
-This is the default for FTW-houly. It's otherwise similar to `flex-default-process` but it uses the time-based availability (i.e. action create-booking has type time).
-
-When used in **Flex Template for Web: Hourly** ([FTW-hourly](https://github.com/sharetribe/ftw-hourly)) customizing
-[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
-done within FTW by utilizing [privileged
-transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
-
-![flex-default-process](./flex-default-process.png)
-
-### flex-product-default-process:
-
-This is the default process for FTW-product. It is a
-transaction process designed for product selling with shipping or pickup that
+This is the default process that is created in our backend for new
+test marketplaces and used for purchases. It is a
+transaction process designed for product selling with shipping or pickup, and it
 uses the Flex stock management features.
 
-When used in **Flex Template for Web: Product** ([FTW-product](https://github.com/sharetribe/ftw-product)) customizing
-[pricing](https://www.sharetribe.com/docs/background/pricing/) can be
-done within FTW by utilizing [privileged
-transitions](https://www.sharetribe.com/docs/background/privileged-transitions/).
+When used in **Sharetribe Web Template** ([web-template](https://github.com/sharetribe/web-template/)) customizing
+[pricing](https://www.sharetribe.com/docs/concepts/pricing/) can be
+done within the template by utilizing [privileged
+transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 
-![flex-product-default-process](./flex-product-default-process.png)
+![default-purchase](./default-purchase.png)
 
 ### instant-booking:
 
-This is an example of instant booking supporting both, card and push payment methods.
+This is an example of instant booking supporting both card and push payment methods.
 
-See [payment methods overview](https://www.sharetribe.com/docs/background/payment-methods-overview/) for more info.
+See [payment methods overview](https://www.sharetribe.com/docs/concepts/payment-methods-overview/) for more info.
 
 ![instant-booking](./instant-booking.png)
 
-### preauth-nightly-booking:
 
-**DEPRECATED** The current default process is named `flex-default-process`.
-
-This is the default process that is created in our backend for new
-test marketplaces and what [Flex Template for Web (FTW)](https://github.com/sharetribe/flex-template-web) expects as the
-default.
-
-In this process listings are booked for full nights.
-
-![preauth-nightly-booking](./preauth-nightly-booking.png)
-
-### preauth-daily-booking:
-
-**DEPRECATED** The current default process is named
-`flex-default-process` and it can perform the
-`preauth-daily-booking` functionality.
-
-This is very similar to the `preauth-nightly-booking` process, but
-bookings are made for full days, not nights.
-
-If you use daily bookings, make sure to change the `bookingUnitType`
-in the [FTW
-config](https://github.com/sharetribe/flex-template-web/blob/master/src/config.js)
-accordingly.
-
-![preauth-daily-booking](./preauth-daily-booking.png)
-
-### preauth-unit-booking:
-
-**DEPRECATED** The current default process is named
-`flex-default-process` and it can perform the
-`preauth-unit-booking` functionality.
-
-This process calculates the total price by units, not the booking
-times. The total price is calculated by multiplying the listing price
-by the `quantity` sent in the transition request.
-
-Note: this process doesn't have availability management enabled since
-the `:action/create-booking` action doesn't set the
-`:observe-availability?` config option.
-
-If you use unit bookings, make sure to change the `bookingUnitType` in
-the [FTW
-config](https://github.com/sharetribe/flex-template-web/blob/master/src/config.js)
-accordingly.
-
-![preauth-unit-booking](./preauth-unit-booking.png)
-
-### preauth-unit-time-booking:
-
-**DEPRECATED** The current default process is named
-`flex-default-process` and it can perform the
-`preauth-unit-time-booking` functionality when `create-booking`
-action is updated with config parameter `:type :time`.
-
-This process is similar to the `preauth-unit-booking` process, but has
-the time-based availability management enabled. The transaction prices
-are calculated based on units.
-
-With daily and nightly bookings, the time component of booking start
-and end is normalized to UTC midnight. With the time-based
-availability in this process, also the time component of the bookings
-dates is relevant.
-
-Note that currently FTW doesn't support time-based availability
-management, but we are working on a version that has all the relevant
-UI components in place for time-based bookings and availability
-management.
-
-![preauth-unit-time-booking](./preauth-unit-time-booking.png)
-
-### negotiated-nightly-booking:
+### negotiated-booking:
 
 This process differs clearly from the other processes as seen in the
 visualization below. It uses price negotiation where the customer and
@@ -209,7 +128,15 @@ the negotiation in an offering phase before moving onto the payment.
 
 Note that price negotiation is just one way to customize the
 pricing. There is also the powerful [Custom
-pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
+pricing](https://www.sharetribe.com/docs/concepts/custom-pricing/)
 that enables lots of use cases for transaction pricing.
 
-![negotiated-nightly-booking](./negotiated-nightly-booking.png)
+In addition to price negotiation, you can also add a functionality to negotiate the booking days within the process. For this use case, you would need to add the [`update-booking` action](https://www.sharetribe.com/docs/references/transaction-process-actions/#actionupdate-booking) to the negotiation transitions, and pass the new suggested booking times as transition parameters. To do this, you would need to make sure in your client app that the listing has availability for the suggested new booking time.
+
+![negotiated-booking](./negotiated-booking.png)
+
+### automatic-off-session-payment
+
+This process makes it possible to create bookings for more than 90 days in the future and still use the default Stripe integration. The automatic off-session payment process creates the booking when the transaction is initiated, but handles the payment closer to the actual booking time. See the [automatic off-session payments article](https://www.sharetribe.com/docs/concepts/off-session-payments-in-transaction-process/) for more information.
+
+![automatic-off-session-payment](./automatic-off-session-payment.png)

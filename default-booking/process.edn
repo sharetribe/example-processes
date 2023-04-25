@@ -4,102 +4,97 @@
    :actor :actor.role/customer,
    :actions [{:name :action/update-protected-data}],
    :to :state/inquiry}
-  {:name :transition/request-booking,
-   :actor :actor.role/customer,
-   :privileged? true,
-   :actions 
-    [{:name :action/update-protected-data}
-     {:name :action/create-pending-booking :config {:type :time}}
-     {:name :action/privileged-set-line-items}],
-   :to :state/pending}
-  {:name :transition/request-booking-after-inquiry,
+  {:name :transition/request-payment,
    :actor :actor.role/customer,
    :actions
    [{:name :action/update-protected-data}
     {:name :action/create-pending-booking, :config {:type :time}}
-    {:name :action/privileged-set-line-items}],
-   :from :state/inquiry,
-   :to :state/pending,
+    {:name :action/privileged-set-line-items}
+    {:name :action/stripe-create-payment-intent}],
+   :to :state/pending-payment,
    :privileged? true}
+  {:name :transition/request-payment-after-inquiry,
+   :actor :actor.role/customer,
+   :actions
+   [{:name :action/update-protected-data}
+    {:name :action/create-pending-booking, :config {:type :time}}
+    {:name :action/privileged-set-line-items}
+    {:name :action/stripe-create-payment-intent}],
+   :from :state/inquiry,
+   :to :state/pending-payment,
+   :privileged? true}
+  {:name :transition/expire-payment,
+   :at
+   {:fn/plus
+    [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
+     {:fn/period ["PT15M"]}]},
+   :actions
+   [{:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}
+    {:name :action/decline-booking}],
+   :from :state/pending-payment,
+   :to :state/payment-expired}
+  {:name :transition/confirm-payment,
+   :actor :actor.role/customer,
+   :actions [{:name :action/stripe-confirm-payment-intent}],
+   :from :state/pending-payment,
+   :to :state/preauthorized}
   {:name :transition/accept,
    :actor :actor.role/provider,
-   :actions [{:name :action/accept-booking}],
-   :from :state/pending,
+   :actions
+   [{:name :action/accept-booking}
+    {:name :action/stripe-capture-payment-intent}],
+   :from :state/preauthorized,
+   :to :state/accepted}
+  {:name :transition/operator-accept,
+   :actor :actor.role/operator,
+   :actions
+   [{:name :action/accept-booking}
+    {:name :action/stripe-capture-payment-intent}],
+   :from :state/preauthorized,
    :to :state/accepted}
   {:name :transition/decline,
    :actor :actor.role/provider,
-   :actions [{:name :action/decline-booking}
-             {:name :action/calculate-full-refund}],
-   :from :state/pending,
+   :actions
+   [{:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}
+    {:name :action/decline-booking}],
+   :from :state/preauthorized,
+   :to :state/declined}
+  {:name :transition/operator-decline,
+   :actor :actor.role/operator,
+   :actions
+   [{:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}
+    {:name :action/decline-booking}],
+   :from :state/preauthorized,
    :to :state/declined}
   {:name :transition/expire,
    :at
    {:fn/min
     [{:fn/plus
-      [{:fn/timepoint [:time/first-entered-state :state/pending]}
+      [{:fn/timepoint [:time/first-entered-state :state/preauthorized]}
        {:fn/period ["P6D"]}]}
-     {:fn/minus
+     {:fn/plus
       [{:fn/timepoint [:time/booking-end]} {:fn/period ["P1D"]}]}]},
-   :actions [{:name :action/decline-booking} {:name :action/calculate-full-refund}],
-   :from :state/pending,
-   :to :state/declined}
-  ;; This transition starts the attempt for automatic
-  ;; off-session payment process. NB! In this example process,
-  ;; the timepoint is set as one day before the booking starts.
-  ;; This timepoint is also referenced in the template for
-  ;; :notification/manual-payment-wanted.
-  {:name :transition/mark-pending-payment,
-   :at
-   {:fn/minus
-    [{:fn/timepoint [:time/booking-start]} {:fn/period ["P1D"]}]},
-   :from :state/accepted,
-   :to :state/pending-payment,
-   :actions []}
-  ;; This transition handles the automatic off-session payment.
-  ;; If it fails, the transaction remains in :state/pending-payment,
-  {:name :transition/auto-payment,
-   :from :state/pending-payment,
-   :to :state/paid,
-   :at
-   {:fn/plus
-    [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
-     {:fn/period ["PT5M"]}]},
    :actions
-   [{:name :action/stripe-create-payment-intent, :config {:use-customer-default-payment-method? :true}}
-    {:name :action/stripe-capture-payment-intent}]}
-  ;; This transition starts the manual payment process.
-  {:name :transition/initiate-manual-payment,
-   :actor :actor.role/customer,
-   :from :state/pending-payment,
-   :to :state/pending-confirmation,
-   :actions [{:name :action/stripe-create-payment-intent}]}
-  {:name :transition/confirm-manual-payment,
-   :actor :actor.role/customer,
-   :from :state/pending-confirmation,
-   :to :state/paid,
-   :actions 
-    [{:name :action/stripe-confirm-payment-intent},
-    {:name :action/stripe-capture-payment-intent}]}
-  {:name :transition/cancel-from-pending-confirmation
-   :actor :actor.role/operator
-   :from :state/pending-confirmation
-   :to :state/cancelled 
-   :actions
-   [{:name :action/cancel-booking}
-    {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],}
+   [{:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}
+    {:name :action/decline-booking}],
+   :from :state/preauthorized,
+   :to :state/expired}
   {:name :transition/complete,
    :at {:fn/timepoint [:time/booking-end]},
    :actions [{:name :action/stripe-create-payout}],
-   :from :state/paid,
+   :from :state/accepted,
    :to :state/delivered}
   {:name :transition/cancel,
    :actor :actor.role/operator,
    :actions
-   [{:name :action/cancel-booking}
-    {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
-   :from :state/paid,
+   [{:name :action/calculate-full-refund}
+    {:name :action/stripe-refund-payment}
+    {:name :action/cancel-booking}],
+   :from :state/accepted,
    :to :state/cancelled}
   {:name :transition/review-1-by-provider,
    :actor :actor.role/provider,
@@ -148,32 +143,37 @@
    :to :state/reviewed}],
  :notifications
  [{:name :notification/booking-new-request,
-   :on :transition/request-booking,
+   :on :transition/confirm-payment,
    :to :actor.role/provider,
    :template :booking-new-request}
   {:name :notification/booking-accepted-request,
    :on :transition/accept,
    :to :actor.role/customer,
    :template :booking-accepted-request}
+  {:name :notification/booking-operator-accepted-request-to-customer,
+   :on :transition/operator-accept,
+   :to :actor.role/customer,
+   :template :booking-accepted-request}
+  {:name :notification/booking-operator-accepted-request-to-provider,
+   :on :transition/operator-accept,
+   :to :actor.role/provider,
+   :template :booking-operator-accepted-request}
   {:name :notification/booking-declined-request,
    :on :transition/decline,
    :to :actor.role/customer,
    :template :booking-declined-request}
-  {:name :notification/booking-auto-declined-request,
+  {:name :notification/booking-operator-declined-request-to-customer,
+   :on :transition/operator-decline,
+   :to :actor.role/customer,
+   :template :booking-declined-request}
+  {:name :notification/booking-operator-declined-request-to-provider,
+   :on :transition/operator-decline,
+   :to :actor.role/provider,
+   :template :booking-operator-declined-request}
+  {:name :notification/booking-expired-request,
    :on :transition/expire,
    :to :actor.role/customer,
-   :template :booking-auto-declined-request}
-  ;; This notification gets sent if the transaction does not
-  ;; succeed in moving from :state/pending-payment to :state/paid
-  ;; with :transition/auto-payment.
-  {:name :notification/booking-manual-payment-wanted,
-   :on :transition/mark-pending-payment,
-   :to :actor.role/customer,
-   :template :booking-manual-payment-wanted,
-   :at
-   {:fn/plus
-    [{:fn/timepoint [:time/first-entered-state :state/pending-payment]}
-     {:fn/period ["PT10M"]}]}}
+   :template :booking-expired-request}
   {:name :notification/booking-money-paid,
    :on :transition/complete,
    :to :actor.role/provider,

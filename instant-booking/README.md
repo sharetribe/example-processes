@@ -36,9 +36,11 @@ There are a number of configurations in the template that are necessary for taki
 
     Define the booking process name:
     ```js 
-    export const INSTANT_BOOKING_PROCESS_NAME = 'instant-booking';```
+    export const INSTANT_BOOKING_PROCESS_NAME = 'instant-booking';
+    ```
 
     Export the process:
+
     ```js
     {
         name: INSTANT_BOOKING_PROCESS_NAME,
@@ -54,7 +56,6 @@ There are a number of configurations in the template that are necessary for taki
     export const isBookingProcess = processName => {
     const latestProcessName = resolveLatestProcessName(processName);
     const processInfo = PROCESSES.find(process => process.name === latestProcessName);
-    return [BOOKING_PROCESS_NAME].includes(processInfo?.name);
     return [BOOKING_PROCESS_NAME, INSTANT_BOOKING_PROCESS_NAME].includes(processInfo?.name);
     };
     ```
@@ -68,7 +69,7 @@ There are a number of configurations in the template that are necessary for taki
     ```js
     import {
     BOOKING_PROCESS_NAME,
-    PRODUCT_PROCESS_NAME,
+    PURCHASE_PROCESS_NAME,
     INSTANT_BOOKING_PROCESS_NAME,
     resolveLatestProcessName,
     } from '../../transactions/transaction';

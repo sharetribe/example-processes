@@ -108,11 +108,19 @@ transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 
 ![default-purchase](./default-purchase.png)
 
+### default-inquiry:
+
+This is the default process that is created in our backend for new test marketplaces and used for free messaging. Its only function is to start a transaction so participants can send messages within the context of that transaction. The process does not use any payment, booking, or stock features.
+
+![default-inquiry](./default-inquiry.png)
+
 ### instant-booking:
 
 This is an example of instant booking supporting both card and push payment methods.
 
 See [payment methods overview](https://www.sharetribe.com/docs/concepts/payment-methods-overview/) for more info.
+
+The [README.md](./instant-booking/README.md) file in the process folder describes how to take the process into use in the Sharetribe Web Template.
 
 ![instant-booking](./instant-booking.png)
 
@@ -126,10 +134,11 @@ provider can negotiate a new total price for the transaction.
 The transitions for the negotiation showcase an example how to handle
 the negotiation in an offering phase before moving onto the payment.
 
+The [README.md](./negotiated-booking/README.md) file in the process folder describes how to take the process into use in the Sharetribe Web Template.
+
 Note that price negotiation is just one way to customize the
-pricing. There is also the powerful [Custom
-pricing](https://www.sharetribe.com/docs/concepts/custom-pricing/)
-that enables lots of use cases for transaction pricing.
+pricing. Our powerful [Custom
+pricing](https://www.sharetribe.com/docs/concepts/custom-pricing/) enables several use cases for transaction pricing.
 
 In addition to price negotiation, you can also add a functionality to negotiate the booking days within the process. For this use case, you would need to add the [`update-booking` action](https://www.sharetribe.com/docs/references/transaction-process-actions/#actionupdate-booking) to the negotiation transitions, and pass the new suggested booking times as transition parameters. To do this, you would need to make sure in your client app that the listing has availability for the suggested new booking time.
 
@@ -138,5 +147,7 @@ In addition to price negotiation, you can also add a functionality to negotiate 
 ### automatic-off-session-payment
 
 This process makes it possible to create bookings for more than 90 days in the future and still use the default Stripe integration. The automatic off-session payment process creates the booking when the transaction is initiated, but handles the payment closer to the actual booking time. See the [automatic off-session payments article](https://www.sharetribe.com/docs/concepts/off-session-payments-in-transaction-process/) for more information.
+
+The [README.md](./automatic-off-session-payment/README.md) file in the process folder describes how to take the process into use in the Sharetribe Web Template.
 
 ![automatic-off-session-payment](./automatic-off-session-payment.png)

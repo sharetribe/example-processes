@@ -1,34 +1,33 @@
-# Sharetribe Flex example transaction processes
+# Sharetribe example transaction processes
 
 This repository contains example transaction processes and the email
-templates for [Sharetribe
-Flex](https://www.sharetribe.com/flex/). These processes can be used
-as starting points for customizing your marketplace using Flex CLI.
+templates for [Sharetribe](https://www.sharetribe.com/). These processes can be used
+as starting points for customizing your marketplace using Sharetribe CLI.
 
 ## Prerequisites
 
-To understand the transaction engine in Sharetribe Flex, see the
+To understand the transaction engine in Sharetribe, see the
 [Transaction process
-article](https://www.sharetribe.com/docs/background/transaction-process/)
-in Flex Docs.
+article](https://www.sharetribe.com/docs/concepts/transaction-process/)
+in Sharetribe Developer Docs.
 
-To get up and running with Flex CLI, see the [Getting started with
-Flex
-CLI](https://www.sharetribe.com/docs/flex-cli/getting-started-with-flex-cli/)
-guide in Flex Docs.
+To get up and running with Sharetribe CLI, see the [Getting started with
+Sharetribe
+CLI](https://www.sharetribe.com/docs/introduction/getting-started-with-sharetribe-cli/)
+guide in Sharetribe Developer Docs.
 
 ## Usage
 
 Clone this repository:
 
 ```
-git clone git@github.com:sharetribe/flex-example-processes.git
+git clone git@github.com:sharetribe/sharetribe-example-processes.git
 ```
 
 Change to the cloned directory:
 
 ```
-cd flex-example-processes
+cd sharetribe-example-processes
 ```
 
 Let's use `my-marketplace-id` as an example Marketplace ID and
@@ -52,7 +51,7 @@ Check that everything is good:
 flex-cli process list -m my-marketplace-id --process instant-booking
 ```
 
-Then set up your Sharetribe Web Web Template customization to use that process alias and
+Then set up your Sharetribe Web Template customization to use that process alias and
 continue customizing your process and UI. You can find process-specific suggestions in the README.md file of each process.
 
 ## Learn more
@@ -64,7 +63,7 @@ guide](https://www.sharetribe.com/docs/references/transaction-process-format/).
 For editing the transactional email templates, see the [Email
 templates
 reference](https://www.sharetribe.com/docs/references/email-templates/)
-in Flex Docs.
+in Sharetribe Developer Docs.
 
 ## Processes
 
@@ -72,7 +71,7 @@ The example processes are meant to showcase some of the capabilities
 of the transaction engine. See the differences in the `process.edn`
 files in each process directory to see how they differ only slightly.
 
-All the processes support [Strong Customer Authentication
+All the payment processes support [Strong Customer Authentication
 (SCA)](https://www.sharetribe.com/docs/background/strong-customer-authentication/).
 
 The example processes differ mostly in availability management and
@@ -80,7 +79,7 @@ pricing. To understand these concepts, see the [Listing availability
 management](https://www.sharetribe.com/docs/references/availability/)
 and [Custom
 pricing](https://www.sharetribe.com/docs/background/custom-pricing/)
-articles in Flex Docs.
+articles in Sharetribe Developer Docs.
 
 ### default-booking:
 
@@ -99,7 +98,7 @@ transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 This is the default process that is created in our backend for new
 test marketplaces and used for purchases. It is a
 transaction process designed for product selling with shipping or pickup, and it
-uses the Flex stock management features.
+uses the Sharetribe stock management features.
 
 When used in **Sharetribe Web Template** ([web-template](https://github.com/sharetribe/web-template/)) customizing
 [pricing](https://www.sharetribe.com/docs/concepts/pricing/) can be

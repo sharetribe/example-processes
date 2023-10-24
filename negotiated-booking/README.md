@@ -1,7 +1,7 @@
 This transaction process enables price negotiation on your marketplace. If you want to use this process in your Sharetribe Web Template, you will need to make the following modifications:
 
-## 1. Push the process into Flex using Flex CLI
-You can see the instructions in [this tutorial article](https://www.sharetribe.com/docs/tutorial/create-transaction-process/). Once you have pushed the process into your marketplace, you will be able to see it in [Flex Console > Build > Transaction processes](https://flex-console.sharetribe.com/transaction-processes/).
+## 1. Push the process into Sharetribe using Sharetribe CLI
+You can see the instructions in [this tutorial article](https://www.sharetribe.com/docs/tutorial/create-transaction-process/). Once you have pushed the process into your marketplace, you will be able to see it in [Console > Build > Transaction processes](https://console.sharetribe.com/transaction-processes/).
 
 ## 2. Configure the template to use this new process
 There are a number of configurations in the template that are necessary for taking the new process into use.

@@ -2,9 +2,9 @@ This transaction process allows your customers to insantly book listings, bypass
 
 For an instant booking transaction, you completely remove the preauthorized state. The confirm-payment transition goes directly to the accepted state. 
 
-## 1. Push this process into your Flex marketplace using Flex CLI
+## 1. Push this process into your Sharetribe marketplace using Sharetribe CLI
 
-You can see the instructions in [this tutorial article](https://www.sharetribe.com/docs/tutorial/create-transaction-process/). Once you have pushed the process into your marketplace, you will be able to see it in [Flex Console > Build > Transaction processes](https://flex-console.sharetribe.com/transaction-processes/).
+You can see the instructions in [this tutorial article](https://www.sharetribe.com/docs/tutorial/create-transaction-process/). Once you have pushed the process into your marketplace, you will be able to see it in [Console > Build > Transaction processes](https://console.sharetribe.com/transaction-processes/).
 
 ## 2. Configure the template to use this new process
 

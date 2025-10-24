@@ -1,1 +1,1 @@
-Confirm your payment for {{transaction.listing.title}}
+{{set-translations (asset "content/email-texts.json")}}{{t "OffSessionBookingManualPaymentWanted.Subject" "Confirm your payment for {listingTitle}" listingTitle=transaction.listing.title}}

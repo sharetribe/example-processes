@@ -1,0 +1,11 @@
+{
+  "BookingAutoDeclinedRequest.BookingCta": "Book something else instead",
+  "BookingAutoDeclinedRequest.Subject": "Your booking request expired",
+  "BookingAutoDeclinedRequest.Title": "Your booking request expired",
+  "OffSessionBookingAccepted.BookingBreakdown": "Your card will be charged {amount,number,::.00} {currency} on {date,date,::YYYYMMMd}. Here's the booking breakdown.",
+  "OffSessionBookingDeclinedRequest.Content": "Unfortunately {providerDisplayName} decided to decline your booking request for {listingTitle} from {dateStart,date,::hmmaYYYYMMMd} to {dateEnd,date,::hmmaYYYYMMMd}. You have not been billed.",
+  "OffSessionBookingManualPaymentWanted.ButtonCta": "Visit payment page",
+  "OffSessionBookingManualPaymentWanted.Content": "You recently booked {listingTitle} from {providerDisplayName}. To complete your payment, we need you to take action.",
+  "OffSessionBookingManualPaymentWanted.Subject": "Confirm your payment for {listingTitle}",
+  "OffSessionBookingManualPaymentWanted.Title": "Please confirm your payment for {listingTitle}"
+}

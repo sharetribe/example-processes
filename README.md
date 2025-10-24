@@ -113,6 +113,33 @@ This is the default process that is created in our backend for new test marketpl
 
 ![default-inquiry](./default-inquiry.png)
 
+### default-negotiation:
+
+This is the default process that is created in our backend for new test
+marketplaces and used for price negotiation. The process supports
+transactions initiated by both the provider and the customer. This means
+it enables both a regular or forward marketplace flow, where the
+provider creates a listing and the customer starts the transaction, and
+a reverse marketplace flow, where the customer creates a listing and the
+provider starts the transaction.
+
+This process involves a price negotiation logic, where the customer and
+provider can negotiate a total price for the transaction. This process does
+not involve any booking or stock actions, but it does include a change
+request loop after the item is delivered. In the change request loop,
+the customer can request changes to the delivered product before accepting
+the end result as successfully delivered.
+
+As of October 2025, the **Sharetribe Web Template**
+([web-template](https://github.com/sharetribe/web-template/)) supports
+using the transaction process for reverse transactions. Support for a
+forward price negotiation flow is on our roadmap, but it is currently
+not supported by the template.
+
+See the [negotiated process article](https://www.sharetribe.com/docs/concepts/negotiation-process/) for more details on the _default-negotiation_ process.
+
+![default-negotiation](./default-negotiation.png)
+
 ### instant-booking:
 
 This is an example of instant booking supporting both card and push payment methods.
@@ -123,15 +150,16 @@ The [README.md](./instant-booking/README.md) file in the process folder describe
 
 ![instant-booking](./instant-booking.png)
 
-
 ### negotiated-booking:
 
-This process differs clearly from the other processes as seen in the
-visualization below. It uses price negotiation where the customer and
+This process also uses price negotiation where the customer and
 provider can negotiate a new total price for the transaction.
+The process also creates a booking against the associated listing's availability.
 
 The transitions for the negotiation showcase an example how to handle
 the negotiation in an offering phase before moving onto the payment.
+The price negotiation logic in this process is simpler than in the
+[default-negotiation](#default-negotiation) process.
 
 The [README.md](./negotiated-booking/README.md) file in the process folder describes how to take the process into use in the Sharetribe Web Template.
 

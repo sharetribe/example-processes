@@ -1,1 +1,1 @@
-{{transaction.customer.display-name}} paid the booking of {{transaction.listing.title}}
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingCustomerPaid.Subject" "{customerName} paid the booking of {listingTitle}" customerName=transaction.customer.display-name listingTitle=transaction.listing.title}}

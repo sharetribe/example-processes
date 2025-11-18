@@ -1,1 +1,1 @@
-{{other-party.display-name}} declined your offer for {{transaction.listing.title}}
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingOfferDeclined.Subject" "{otherParty} declined your offer for {listingTitle}" otherParty=other-party.display-name listingTitle=transaction.listing.title }}

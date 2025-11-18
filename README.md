@@ -136,7 +136,7 @@ using the transaction process for reverse transactions. Support for a
 forward price negotiation flow is on our roadmap, but it is currently
 not supported by the template.
 
-See the [negotiated process article](https://www.sharetribe.com/docs/concepts/negotiation-process/) for more details on the _default-negotiation_ process.
+See the [negotiated process article](https://www.sharetribe.com/docs/concepts/transactions/negotiation-process/) for more details on the _default-negotiation_ process.
 
 ![default-negotiation](./default-negotiation.png)
 

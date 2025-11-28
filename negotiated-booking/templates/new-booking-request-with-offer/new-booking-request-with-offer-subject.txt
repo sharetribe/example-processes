@@ -1,5 +1,1 @@
-
-{{~#*inline "format-money"~}}
-{{~money-amount money}} {{money.currency~}}
-{{~/inline~}}
-{{~transaction.customer.display-name}} has requested to book {{transaction.listing.title}} for {{> format-money money=transaction.payin-total}}
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingNewRequestWithOffer.Subject" "{customerName} has requested to book {listingTitle} for {amount,number,::.00} {currency}" customerName=transaction.customer.display-name listingTitle=transaction.listing.title amount=transaction.payin-total.amount currency=transaction.payin-total.currency}}

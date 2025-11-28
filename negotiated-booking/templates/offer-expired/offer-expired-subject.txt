@@ -1,1 +1,1 @@
-{{other-party.display-name}} didn't reply to your offer of {{transaction.listing.title}} on time
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingOfferExpired.Subject" "{otherParty} didn't reply to your offer of {listingTitle} on time" otherParty=other-party.display-name listingTitle=transaction.listing.title }}

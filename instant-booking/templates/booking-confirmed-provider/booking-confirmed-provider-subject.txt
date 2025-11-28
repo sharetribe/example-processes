@@ -1,1 +1,1 @@
-{{transaction.customer.display-name}} has booked {{transaction.listing.title}}
+{{set-translations (asset "content/email-texts.json")}}{{t "BookingConfirmedProvider.Subject" "{customerDisplayName} has booked {listingTitle}" customerDisplayName=transaction.customer.display-name listingTitle=transaction.listing.title}}

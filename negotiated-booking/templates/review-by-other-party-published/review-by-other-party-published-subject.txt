@@ -1,1 +1,1 @@
-Read the review {{other-party.display-name}} wrote you
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingReviewByOtherPartyPublished.Subject" "Read the review {otherPartyDisplayName} wrote you" otherPartyDisplayName=other-party.display-name }}

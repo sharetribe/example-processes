@@ -1,1 +1,2 @@
-{{transaction.provider.display-name}} accepted your offer!
+
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingProviderAcceptedOffer.Subject" "{providerName} accepted your offer!" providerName=transaction.provider.display-name }}

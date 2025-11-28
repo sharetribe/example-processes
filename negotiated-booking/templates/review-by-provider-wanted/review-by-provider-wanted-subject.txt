@@ -1,1 +1,1 @@
-Write a review for {{transaction.customer.display-name}}
+{{set-translations (asset "content/email-texts.json")}}{{t "NegotiatedBookingReviewByProviderWanted.Subject" "Write a review for {customerDisplayName}" customerDisplayName=transaction.customer.display-name }}

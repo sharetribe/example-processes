@@ -1,1 +1,1 @@
-You have booked {{transaction.listing.title}}
+{{set-translations (asset "content/email-texts.json")}}{{t "BookingConfirmedCustomer.Subject" "You have booked {listingTitle}" listingTitle=transaction.listing.title }}

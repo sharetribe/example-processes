@@ -83,39 +83,39 @@ articles in Sharetribe Developer Docs.
 
 ### default-booking:
 
-This is the default process that is created in our backend for new
+This is a default process that is created in our backend for new
 test marketplaces and used for bookings.
 
 When used in **Sharetribe Web Template** ([web-template](https://github.com/sharetribe/web-template/)) customizing
 [pricing](https://www.sharetribe.com/docs/concepts/pricing/) can be
-done within the template by utilizing [privileged
+done within the template by using [privileged
 transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 
 ![default-booking](./default-booking.png)
 
 ### default-purchase:
 
-This is the default process that is created in our backend for new
+This is a default process that is created in our backend for new
 test marketplaces and used for purchases. It is a
 transaction process designed for product selling with shipping or pickup, and it
 uses the Sharetribe stock management features.
 
 When used in **Sharetribe Web Template** ([web-template](https://github.com/sharetribe/web-template/)) customizing
 [pricing](https://www.sharetribe.com/docs/concepts/pricing/) can be
-done within the template by utilizing [privileged
+done within the template by using [privileged
 transitions](https://www.sharetribe.com/docs/concepts/privileged-transitions/).
 
 ![default-purchase](./default-purchase.png)
 
 ### default-inquiry:
 
-This is the default process that is created in our backend for new test marketplaces and used for free messaging. Its only function is to start a transaction so participants can send messages within the context of that transaction. The process does not use any payment, booking, or stock features.
+This is a default process that is created in our backend for new test marketplaces and used for free messaging. Its only function is to start a transaction so participants can send messages within the context of that transaction. The process does not use any payment, booking, or stock features.
 
 ![default-inquiry](./default-inquiry.png)
 
 ### default-negotiation:
 
-This is the default process that is created in our backend for new test
+This is a default process that is created in our backend for new test
 marketplaces and used for price negotiation. The process supports
 transactions initiated by both the provider and the customer. This means
 it enables both a regular or forward marketplace flow, where the
@@ -130,15 +130,18 @@ request loop after the item is delivered. In the change request loop,
 the customer can request changes to the delivered product before accepting
 the end result as successfully delivered.
 
-As of October 2025, the **Sharetribe Web Template**
-([web-template](https://github.com/sharetribe/web-template/)) supports
-using the transaction process for reverse transactions. Support for a
-forward price negotiation flow is on our roadmap, but it is currently
-not supported by the template.
-
 See the [negotiated process article](https://www.sharetribe.com/docs/concepts/negotiation-process/) for more details on the _default-negotiation_ process.
 
 ![default-negotiation](./default-negotiation.png)
+
+### default-download
+
+This is a default process that is created in our backend for new test
+marketplaces and used for digital download sales. The process does not have any provider actions.
+
+Once the customer successfully pays for the item, the transaction process reveals protected files from the listing to the transaction, so that the customer can then access them. The process also includes a path where the customer can report the transaction in case of an issue.
+
+![default-download](./default-download.png)
 
 ### instant-booking:
 
